@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  <copyright file="AddIn.xml" company="Microsoft">
+    Copyright (C) Microsoft. All rights reserved.
+  </copyright>
+-->
+<Package xmlns="http://schemas.microsoft.com/WindowsServerSolutions/2010/03/Addins" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+  <Id>22A0DFA8-C98C-4257-B5ED-FDF1FC560DE7</Id>
+  <Version>2.0.0.0</Version>
+  <Name>Contoso Services Add-In</Name>
+  <Allow32BitOn64BitClients>false</Allow32BitOn64BitClients>
+  <ServerBinary>
+    <File>
+      <!--The content of this element should be the value of Id attribute of element Product defined in ContosoHostedEmail.wxs-->
+      <ProductCode>2FB9BAE9-38EF-4C0B-B01F-A6DC9A032D7A</ProductCode>
+      <Version>2.0</Version>
+      <Name>ContosoHostedEmail.msi</Name>
+    </File>
+  </ServerBinary>
+  <SupportUrl>http://www.contososervice.com/</SupportUrl>
+  <PrivacyStatement>http://privacystatement</PrivacyStatement>
+</Package>

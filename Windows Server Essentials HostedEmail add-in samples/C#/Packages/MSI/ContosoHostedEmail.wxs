@@ -1,0 +1,185 @@
+﻿<?xml version='1.0' encoding="UTF-8"?>
+<!--
+  <copyright file="ContosoHostedEmail.wxs" company="Microsoft">
+    Copyright (C) Microsoft. All rights reserved.
+  </copyright>
+-->
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <Product
+    Name='Contoso Services'
+    Id='2FB9BAE9-38EF-4C0B-B01F-A6DC9A032D7A'
+    UpgradeCode='ABA8BB6D-A041-4E21-88AC-83C0A8270218'
+    Language='1033'
+    Version='1.0.0'
+    Manufacturer='Contoso Services'>
+
+    <Package
+      Id='*'
+      Keywords='Installer'
+      Platform="x64"
+      Description='Contoso Services Hosted Email Server Deployment'
+      InstallerVersion='200'
+      Compressed='yes'
+      InstallScope="perMachine" />
+
+    <Binary Id="ContosoUninstallActions" SourceFile="..\..\Bin\ContosoCustomAction.CA.dll"/>
+    <Media
+      Id='1'
+      Cabinet='ContosoServicesAddin.cab'
+      EmbedCab='yes' />
+
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+      <Directory Id='ProgramFiles64Folder' Name='PFiles'>
+        <Directory Id="WindowsServerDir" Name="Windows Server">
+          <Directory Id="WindowsServerBinDir" Name="Bin">
+            <Component
+              Id='WssgHostedEmailConfigureWizard_CMP'
+              Guid='E86F3084-3A9E-4841-8C1A-503288210B47'
+              Win64='yes'>
+              <File
+                Id='WssgHostedEmailConfigureWizard_FILE'
+                Name='Wssg.HostedEmailConfigureWizard.vbs'
+                Source='..\..\Bin\Wssg.HostedEmailConfigureWizard.vbs'
+                ProcessorArchitecture='x64'
+                KeyPath='yes'>
+              </File>
+            </Component>
+            <Component
+              Id='ContosoHostedEmail_CMP'
+              Guid='23A4753A-08A7-478D-BD76-D64F0681C54F'
+              Win64='yes'>
+              <File
+                Id='ContosoHostedEmail_FILE'
+                Name='ContosoHostedEmailAddin.dll'
+                Source='..\..\Bin\ContosoHostedEmailAddin.dll'
+                ProcessorArchitecture='x64'
+                KeyPath='yes' />
+              <File
+                Id='ContosoMockEmailService_FILE'
+                Name='ContosoMockEmailService.dll'
+                Source='..\..\Bin\ContosoMockEmailService.dll'
+                ProcessorArchitecture='x64'
+                KeyPath='no' />
+
+              <File
+                Id='ContosoHostedEmailAdaptorLogMonitor_FILE'
+                Name='Wssg.HostedEmailConfigureWizard.Reset.vbs'
+                Source='..\..\Bin\UI\Wssg.HostedEmailConfigureWizard.Reset.vbs'
+                ProcessorArchitecture='x64'
+                KeyPath='no' />
+              <File
+                Id='ConfigureWizardRest_FILE'
+                Name='ContosoHostedEmailAdaptorLogMonitor.exe'
+                Source='..\..\Bin\ContosoHostedEmailAdaptorLogMonitor.exe'
+                ProcessorArchitecture='x64'
+                KeyPath='no' />
+            </Component>
+
+            <Directory Id="WindowsServerAddinsDir" Name="Addins">
+              <Directory Id="HostedEmailDir" Name="HostedEmail">
+                <Component
+                  Id='ContosoHostedEmailAdaptorAddin_CMP'
+                  Guid='8F15F2BE-4D00-4E66-BB46-6F0A019C596B'
+                  Win64='yes'>
+                  <File
+                    Id='ContosoHostedEmailAdaptorAddin_FILE'
+                    Name='ContosoHostedEmail.addin'
+                    Source='..\..\Bin\AddinFiles\ContosoHostedEmail.addin'
+                    ProcessorArchitecture='x64'
+                    KeyPath='yes' />
+                </Component>
+              </Directory>
+              <Directory Id="SampleHomePageTaskDir" Name="Home">
+                <Component
+                  Id='ContosoHostedEmailHomepage_CMP'
+                  Guid='0442C1A3-92A6-4131-A120-80FD2F59D867'
+                  Win64='yes'>
+                  <File
+                    Id='ContosoHostedEmailHomepage_FILE'
+                    Name='ContosoHostedEmailHomepageAddin.dll'
+                    Source='..\..\Bin\ContosoHostedEmailHomepageAddin.dll'
+                    ProcessorArchitecture='x64'
+                    KeyPath='yes' />
+                </Component>
+              </Directory>
+              <Directory Id="SampleDashboardTaskDir" Name="Primary">
+                <Component
+                  Id='ContosoHostedEmailDashboardAddin_CMP'
+                  Guid='5403D20C-0A16-4BDF-A6F5-9E3EE87C8E85'
+                  Win64='yes'>
+                  <File
+                    Id='ContosoHostedEmailDashboardAddin_FILE'
+                    Name='ContosoTopLevelDashboard.addin'
+                    Source='..\..\Bin\AddinFiles\ContosoTopLevelDashboard.addin'
+                    ProcessorArchitecture='x64'
+                    KeyPath='yes' />
+                </Component>
+              </Directory>
+              <Directory Id='AddinUsersDir' Name='Users'>
+                <Directory Id='AddinUsersUPDDir' Name='UserPropertyDialog'>
+                  <Component
+                    Id='ContosoDistributionGroupAddin_CMP'
+                    Guid='A6C2C943-F836-4692-BD3E-93FB8AE30ECC'
+                    Win64='yes'>
+                    <File
+                      Id='ContosoDistributionGroupAddin_FILE'
+                      Name='ContosoDistributionGroupAddin.addin'
+                      Source='..\..\Bin\AddinFiles\ContosoDistributionGroupAddin.addin'
+                      ProcessorArchitecture='x64'
+                      KeyPath='yes' />
+                  </Component>
+                </Directory>
+              </Directory>
+              <Directory Id="SampleHostedEmailDir" Name="HostedEmail">
+                <Directory Id="SampleUserPropertyDialogExtensionDir" Name="UserPropertyDialogExtension">
+
+                  <Component
+                    Id='ContosoHostedEmailUserPropertyAdvancedAddin_CMP'
+                    Guid='A11EE0B2-C024-40F4-AD4A-6B310D38D15C'
+                    Win64='yes'>
+                    <File
+                      Id='ContosoHostedEmailUserPropertyAdvancedAddin_FILE'
+                      Name='ContosoUserPropertyAdvanced.addin'
+                      Source='..\..\Bin\AddinFiles\ContosoUserPropertyAdvanced.addin'
+                      ProcessorArchitecture='x64'
+                      KeyPath='yes'>
+                    </File>
+                  </Component>
+
+                </Directory>
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <Feature Id='Complete' Level='1'>
+      <ComponentRef Id='ContosoHostedEmailHomepage_CMP' />
+      <ComponentRef Id='WssgHostedEmailConfigureWizard_CMP' />
+      <ComponentRef Id='ContosoHostedEmail_CMP' />
+      <ComponentRef Id='ContosoHostedEmailAdaptorAddin_CMP' />
+      <ComponentRef Id='ContosoHostedEmailDashboardAddin_CMP'/>
+      <ComponentRef Id='ContosoDistributionGroupAddin_CMP'/>
+      <ComponentRef Id='ContosoHostedEmailUserPropertyAdvancedAddin_CMP'/>
+    </Feature>
+
+    <CustomAction Id="UninstallCheckId"
+                  BinaryKey="ContosoUninstallActions"
+                  DllEntry="UninstallCheck"
+                  Execute="deferred"
+                  Return="check" />
+
+    <CustomAction Id="RemoveDataFileId"
+                  BinaryKey="ContosoUninstallActions"
+                  DllEntry="RemoveAutoGeneratedDataFilesAndFolders"
+                  Execute="deferred"
+                  Return="check" />
+
+    <InstallExecuteSequence>
+      <Custom Action="UninstallCheckId" After="InstallInitialize">Installed AND NOT UPGRADINGPRODUCTCODE</Custom>
+      <Custom Action="RemoveDataFileId" Before="RemoveFiles">Installed AND NOT UPGRADINGPRODUCTCODE</Custom>
+    </InstallExecuteSequence>
+  </Product>
+</Wix>
